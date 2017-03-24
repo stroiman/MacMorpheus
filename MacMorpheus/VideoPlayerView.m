@@ -129,7 +129,15 @@
 	} else if(event.keyCode == 123) { // LEFT
 		
 		[self advancePlaybackBySeconds: -15];
-	
+
+    } else if(event.keyCode == 126) { // UP
+
+        [self advancePlaybackBySeconds: 90];
+
+    } else if(event.keyCode == 125) { // DOWN
+
+        [self advancePlaybackBySeconds: -90];
+
 	} else if(event.keyCode == 34) { // i
 		
 		leftView.showsStatistics = !leftView.showsStatistics;

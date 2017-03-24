@@ -28,7 +28,8 @@ https://github.com/emoRaivis/MacMorpheus/releases/download/0.2/MacMorpheus.app.z
 ## Controls
 * **Enter** - Toggle fullscreen
 * **Space** - Play / Pause
-* **Arrows** - Skip backward / forward
+* **Down/Up Arrow Keys** - Long skip backward / forward
+* **Left/Right Arrow Keys** - Short skip backward / forward
 * **R** - Center view / reset orientation
 * **ESC** - Exit fullscreen / quit
 * ***Mouse drag*** - Look around
