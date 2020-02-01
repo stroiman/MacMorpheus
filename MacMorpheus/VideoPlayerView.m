@@ -213,7 +213,36 @@
 //			[VideoPlayerViewProjectionMethod projectionMethodWithName: @"3D Vertical (Side By Side)" eyeLayerHandler: nil],
 //			// --
 //			[VideoPlayerViewProjectionMethod projectionMethodWithName: @"3D 360° Vertical (Side By Side)" eyeLayerHandler: nil],
+                        
+            [VideoPlayerViewProjectionMethod projectionMethodWithName: @"3D 180° Vertical (Side By Side)" eyeLayerHandler: ^(CALayer * eyeLayer, int eye, CGSize contentSize, AVPlayerLayer * playerLayer, EyeView * eyeView) {
+                
+                CGRect eyeFrame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+                if(eye == 1) {
+                    CGRect playerFrame = playerLayer.frame;
+                    playerFrame.origin.x -= round(eyeFrame.size.width / 2.0);
+                    playerLayer.frame = playerFrame;
+                } else {
+                    CALayer * maskLayer = [CALayer layer];
+                    maskLayer.backgroundColor = [NSColor redColor].CGColor;
+                    maskLayer.frame = CGRectMake(0, 0, (contentSize.width / 2.0), contentSize.height);
+                    playerLayer.mask = maskLayer;
+                }
+                eyeLayer.frame = eyeFrame;
 
+                eyeView.projectionTransform = SCNMatrix4MakeRotation(M_PI / 2.0, 0, 1, 0);
+                
+/*
+                CGRect eyeFrame = CGRectMake(0, 0, round(contentSize.width / 2.0), contentSize.height);
+                if(eye == 1) {
+                    CGRect playerFrame = playerLayer.frame;
+                    playerFrame.origin.x -= eyeFrame.size.width;
+                    playerLayer.frame = playerFrame;
+                }
+                eyeLayer.frame = eyeFrame;
+*/
+                
+            }],
+            
 			[VideoPlayerViewProjectionMethod projectionMethodWithName: @"2D 360° Regular" eyeLayerHandler: ^(CALayer * eyeLayer, int eye, CGSize contentSize, AVPlayerLayer * playerLayer, EyeView * eyeView) {
 			
 				CGRect eyeFrame = CGRectMake(0, 0, contentSize.width, contentSize.height);
@@ -233,37 +262,7 @@
 				
 				eyeView.projectionTransform = SCNMatrix4MakeRotation(M_PI, 0, 1, 0);;
 				
-			}],
-			
-			[VideoPlayerViewProjectionMethod projectionMethodWithName: @"3D 180° Vertical (Side By Side)" eyeLayerHandler: ^(CALayer * eyeLayer, int eye, CGSize contentSize, AVPlayerLayer * playerLayer, EyeView * eyeView) {
-				
-				CGRect eyeFrame = CGRectMake(0, 0, contentSize.width, contentSize.height);
-				if(eye == 1) {
-					CGRect playerFrame = playerLayer.frame;
-					playerFrame.origin.x -= round(eyeFrame.size.width / 2.0);
-					playerLayer.frame = playerFrame;
-				} else {
-					CALayer * maskLayer = [CALayer layer];
-					maskLayer.backgroundColor = [NSColor redColor].CGColor;
-					maskLayer.frame = CGRectMake(0, 0, (contentSize.width / 2.0), contentSize.height);
-					playerLayer.mask = maskLayer;
-				}
-				eyeLayer.frame = eyeFrame;
-
-				eyeView.projectionTransform = SCNMatrix4MakeRotation(M_PI / 2.0, 0, 1, 0);
-				
-/*
-				CGRect eyeFrame = CGRectMake(0, 0, round(contentSize.width / 2.0), contentSize.height);
-				if(eye == 1) {
-					CGRect playerFrame = playerLayer.frame;
-					playerFrame.origin.x -= eyeFrame.size.width;
-					playerLayer.frame = playerFrame;
-				}
-				eyeLayer.frame = eyeFrame;
-*/
-				
-			}]
-			
+			}]			
 		];
 		
 	}
